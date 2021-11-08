@@ -1,8 +1,9 @@
-let noteTitle;
-let noteText;
-let saveNoteBtn;
-let newNoteBtn;
-let noteList;
+
+let noteTitle = $(".note-title");
+let noteText = $(".note-textarea");
+let saveNoteBtn = $(".save-note");
+let newNoteBtn = $(".new-note");
+let noteList = $(".list-group");
 
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');

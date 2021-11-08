@@ -1,14 +1,26 @@
 {
   "name": "note-taker",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mon": "nodemon express.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
-  }
+    "express": "^4.17.1",
+    "node": "^17.0.1",
+    "nodemon": "^2.0.14"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JunyaQ/ExpressNoteBook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JunyaQ/ExpressNoteBook/issues"
+  },
+  "homepage": "https://github.com/JunyaQ/ExpressNoteBook#readme",
+  "description": ""
 }
