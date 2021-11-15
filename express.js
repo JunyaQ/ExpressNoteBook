@@ -41,7 +41,7 @@ app.post("/api/notes",(req,res)=>{
         var title = req.body.title;
         var text = req.body.text;
 
-        var newnote = {title:title, text:text,id:id};
+        var newnote = {title:title, text:text, id:id};
         
        notes.push(newnote);
       
@@ -70,26 +70,25 @@ app.delete("/api/notes/:id", (req, res) => {
     }
     else{
       var note = JSON.parse(notes);
-      for(var i=0; i<notes.length;i++){
+      for(var i=0; i<note.length;i++){
         if(note[i].id!==noteId||note[i].id==undefined){
           var title = note[i].title;
           var text = note[i].text;
           var id = note[i].id;
-          var newnote = {title:title, text:text,id:id};
+          var newnote = {title:title, text:text, id:id};
           note.push(newnote);
         }
-          
+      }
+      console.log(note);
+    }  
           fs.writeFile(__dirname + "/db/db.json", JSON.stringify(note), function (error, data) {
             if (error) {
               return console.log("delete writefile: "+error);
             }
-            else{
+            
+              console.log("This is all the notes: "+note);
             res.json(note)
-            }
           })
-      }
-    }
-  
   })
 
 });
