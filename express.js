@@ -58,30 +58,35 @@ app.post("/api/notes",(req,res)=>{
       })
 })
 
-
-
-
-
 //get certain information from the json with the id as key
 //http://localhost:3001/notes
 app.delete("/api/notes/:id", (req, res) => {
   // res.sendFile(path.join(__dirname, "/db/db.json"));
-  const noteId = JSON.parse(req.params.id)
+  const noteId = JSON.parse(req.params.id)//get id from req
   console.log(noteId)
   fs.readFile(__dirname + "/db/db.json", function (error, notes) {
     if (error) {
       return console.log("delete readfile: "+error);
     }
     else{
+      var note = JSON.parse(notes);
       for(var i=0; i<notes.length;i++){
-        if(notes[i].id!==noteId){
-          fs.writeFile(__dirname + "/db/db.json", JSON.stringify(notes), function (error, data) {
+        if(note[i].id!==noteId||note[i].id==undefined){
+          var title = note[i].title;
+          var text = note[i].text;
+          var id = note[i].id;
+          var newnote = {title:title, text:text,id:id};
+          note.push(newnote);
+        }
+          
+          fs.writeFile(__dirname + "/db/db.json", JSON.stringify(note), function (error, data) {
             if (error) {
               return console.log("delete writefile: "+error);
             }
-            res.json(data)
+            else{
+            res.json(note)
+            }
           })
-        }
       }
     }
   
