@@ -11,28 +11,31 @@
 
  //get notes.html
  app.get('/notes', function(req, res){
-    res.sendFile(path.join(__dirname, "/public/notes.html"));
+    res.sendFile(__dirname+ "/public/notes.html");
     //res.send('/test');
 });
 
+
+
  // get index file
- app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public/index.html"));
+ app.get("/", (req, res) => {
+  res.sendFile(__dirname+"/public/index.html");
 });
+
 
 
 //connect to database, will store the input from notes.html to it.
 app.get("/api/notes", (req, res) => {
-    res.sendFile(path.join(__dirname, "/db/db.json"));
+    res.sendFile(__dirname+"/db/db.json");
 });
 
 // get information on the webpage
 app.post("/api/notes",(req,res)=>{
     fs.readFile(__dirname + "/db/db.json", function (error, notes) {
         if (error) {
-          return console.log("sendfile: "+error)
+          return console.log("sendfile: "+error);
         }
-        notes = JSON.parse(notes)
+        notes = JSON.parse(notes);
     
         var id = notes.length;
         var title = req.body.title;
@@ -45,9 +48,10 @@ app.post("/api/notes",(req,res)=>{
     
         fs.writeFile(__dirname + "/db/db.json", JSON.stringify(activeNote), function (error, data) {
           if (error) {
-            return error
+            return console.log("writefile: "+error);
           }
-          console.log(activeNote)
+          console.log(activeNote);
+          console.log("total notes: "+activeNote.length);
           //individual
          // console.log(activeNote[1].title);
           res.json(activeNote);
@@ -58,11 +62,29 @@ app.post("/api/notes",(req,res)=>{
 
 
 //get certain information from the json with the id as key
-//http://localhost:3001/api/notes/
-app.get("/api/notes/:id", (req, res) => {
+//http://localhost:3001/notes
+app.delete("/api/notes/:id", (req, res) => {
   // res.sendFile(path.join(__dirname, "/db/db.json"));
-  let noteList = JSON.parse(fs.readFileSync("./db/db.json"));
-  let noteId = (req.params.id).toString();
+  const noteId = JSON.parse(req.params.id)
+  console.log(noteId)
+  fs.readFile(__dirname + "/db/db.json", function (error, notes) {
+    if (error) {
+      return console.log("delete readfile: "+error);
+    }
+    else{
+      for(var i=0; i<notes.length;i++){
+        if(notes[i].id!==noteId){
+          fs.writeFile(__dirname + "/db/db.json", JSON.stringify(notes), function (error, data) {
+            if (error) {
+              return console.log("delete writefile: "+error);
+            }
+            res.json(data)
+          })
+        }
+      }
+    }
+  
+  })
 
 });
 

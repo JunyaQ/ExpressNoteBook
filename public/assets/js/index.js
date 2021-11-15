@@ -80,11 +80,11 @@ const handleNoteSave = () => {
 // Delete the clicked note
 const handleNoteDelete = (e) => {
   // Prevents the click listener for the list from being called when the button inside of it is clicked
- //e.stopPropagation();
- // const note = e.target;
- // const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
+ e.stopPropagation();
+ const note = e.target;
+ const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
   console.log("deletebtn clicked");
-  /*
+
   if (activeNote.id === noteId) {
     activeNote = {};
   }
@@ -93,7 +93,6 @@ const handleNoteDelete = (e) => {
     getAndRenderNotes();
     renderActiveNote();
   });
-  */
 };
 
 // Sets the activeNote and displays it
@@ -139,7 +138,7 @@ const renderNoteList = async (notes) => {
     liEl.append(spanEl);
 
     if (delBtn) {
-      const delBtnEl = document.createElement('i');
+      const delBtnEl = document.createElement('button');
       delBtnEl.classList.add(
         'fas',
         'fa-trash-alt',
@@ -148,7 +147,6 @@ const renderNoteList = async (notes) => {
         'delete-note'
       );
     delBtnEl.addEventListener('click', handleNoteDelete);
-
       liEl.append(delBtnEl);
     }
 
