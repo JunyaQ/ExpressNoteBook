@@ -1,9 +1,8 @@
-
-let noteTitle = $(".note-title");
-let noteText = $(".note-textarea");
-let saveNoteBtn = $(".save-note");
-let newNoteBtn = $(".new-note");
-let noteList = $(".list-group");
+let noteTitle;
+let noteText;
+let saveNoteBtn;
+let newNoteBtn;
+let noteList;
 
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
@@ -26,11 +25,13 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
-
 const getNotes = () =>
-  fetch('../../../db/db.json')
-    .then(res => res.json())
-    .then(data => console.log(data))
+  fetch('/api/notes', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 
 const saveNote = (note) =>
   fetch('/api/notes', {
