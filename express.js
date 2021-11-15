@@ -43,21 +43,22 @@ app.post("/api/notes",(req,res)=>{
 
         var newnote = {title:title, text:text,id:id};
         
-        var activeNote = notes.concat(newnote)
-        notes.concat()
-    
-        fs.writeFile(__dirname + "/db/db.json", JSON.stringify(activeNote), function (error, data) {
+       notes.push(newnote);
+      
+        fs.writeFile(__dirname + "/db/db.json", JSON.stringify(notes), function (error, data) {
           if (error) {
             return console.log("writefile: "+error);
           }
-          console.log(activeNote);
-          console.log("total notes: "+activeNote.length);
+          console.log(notes);
+          console.log("total notes: "+notes.length);
           //individual
          // console.log(activeNote[1].title);
-          res.json(activeNote);
+          res.json(notes);
         })
       })
 })
+
+
 
 
 
