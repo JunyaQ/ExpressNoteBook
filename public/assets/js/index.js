@@ -80,11 +80,11 @@ const handleNoteSave = () => {
 // Delete the clicked note
 const handleNoteDelete = (e) => {
   // Prevents the click listener for the list from being called when the button inside of it is clicked
-  e.stopPropagation();
-
-  const note = e.target;
-  const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
-
+ //e.stopPropagation();
+ // const note = e.target;
+ // const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
+  console.log("deletebtn clicked");
+  /*
   if (activeNote.id === noteId) {
     activeNote = {};
   }
@@ -93,6 +93,7 @@ const handleNoteDelete = (e) => {
     getAndRenderNotes();
     renderActiveNote();
   });
+  */
 };
 
 // Sets the activeNote and displays it
@@ -146,13 +147,14 @@ const renderNoteList = async (notes) => {
         'text-danger',
         'delete-note'
       );
-      delBtnEl.addEventListener('click', handleNoteDelete);
+    delBtnEl.addEventListener('click', handleNoteDelete);
 
       liEl.append(delBtnEl);
     }
 
     return liEl;
   };
+  
 
   if (jsonNotes.length === 0) {
     noteListItems.push(createLi('No saved Notes', false));

@@ -8,13 +8,19 @@
  app.use(express.static('public'));
  app.use(express.urlencoded({ extended: true }));
  app.use(express.json());
- 
 
  //get notes.html
  app.get('/notes', function(req, res){
     res.sendFile(path.join(__dirname, "/public/notes.html"));
     //res.send('/test');
 });
+
+ // get index file
+ app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/public/index.html"));
+});
+
+
 //connect to database, will store the input from notes.html to it.
 app.get("/api/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "/db/db.json"));
@@ -43,20 +49,21 @@ app.post("/api/notes",(req,res)=>{
           }
           console.log(activeNote)
           //individual
-          console.log(activeNote[1].title);
+         // console.log(activeNote[1].title);
           res.json(activeNote);
         })
       })
 })
 
 
+
 //get certain information from the json with the id as key
-//http://localhost:3001/api/notes/id=1
+//http://localhost:3001/api/notes/
 app.get("/api/notes/:id", (req, res) => {
   // res.sendFile(path.join(__dirname, "/db/db.json"));
-  console.log("test");
-   console.log(JSON.parse(req.params.id));
-  
+  let noteList = JSON.parse(fs.readFileSync("./db/db.json"));
+  let noteId = (req.params.id).toString();
+
 });
 
 app.listen(PORT,function(){
