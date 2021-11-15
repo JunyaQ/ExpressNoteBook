@@ -52,7 +52,7 @@ app.post("/api/notes",(req,res)=>{
           console.log(notes);
           console.log("total notes: "+notes.length);
           //individual
-         // console.log(activeNote[1].title);
+         console.log(notes[1].title);
           res.json(notes);
         })
       })
@@ -65,33 +65,38 @@ app.delete("/api/notes/:id", (req, res) => {
   const noteId = JSON.parse(req.params.id)//get id from req
   console.log(noteId)
   fs.readFile(__dirname + "/db/db.json", function (error, notes) {
+    var notes=JSON.parse(notes);
+    console.log("notes:"+notes[2].title);
+    //console.log("notes title: "+JSON.stringify(notes.split(",")));
     if (error) {
       return console.log("delete readfile: "+error);
     }
+    
     else{
-      var note = JSON.parse(notes);
-      for(var i=0; i<note.length;i++){
-        if(note[i].id!==noteId||note[i].id==undefined){
-          var title = note[i].title;
-          var text = note[i].text;
-          var id = note[i].id;
+      //var notes = JSON.parse(notes);
+      for(var i=0; i<notes.length;i++){
+        if(notes[i].id!==noteId||notes[i].id==undefined){
+          var title = notes[i].title;
+          var text = notes[i].text;
+          var id = notes[i].id;
           var newnote = {title:title, text:text, id:id};
-          note.push(newnote);
+          notes.push(newnote);
         }
       }
-      console.log(note);
-    }  
-          fs.writeFile(__dirname + "/db/db.json", JSON.stringify(note), function (error, data) {
+      
+      console.log(notes);
+          fs.writeFile(__dirname + "/db/db.json", JSON.stringify(notes), function (error, data) {
             if (error) {
               return console.log("delete writefile: "+error);
             }
             
-              console.log("This is all the notes: "+note);
-            res.json(note)
+              console.log("This is all the notes: "+notes);
+            res.json(notes)
           })
+        }  
   })
-
 });
+
 
 app.listen(PORT,function(){
     console.log(`listening at ${PORT}`);
