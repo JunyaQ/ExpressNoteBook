@@ -11,6 +11,13 @@ THEN the note will be deleted. <br/>
 WHEN I clicked onto the note on the left side list <br/>
 THEN I can check that note, the detail will be shown on the right side. <br/>
 
+## Techbologies use
+- HTML
+- CSS
+- Javascript
+- Node js
+- Express js
+
 ## Demo video about the app
 [Demo video](https://drive.google.com/file/d/1YvCSMSq6ZORW_pRLSQSvd6SDlLiQ27de/view?usp=sharing)<br/>
 
